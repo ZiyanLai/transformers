@@ -539,7 +539,7 @@ class BoolqProcessor(DataProcessor):
             return self._create_examples(lines, "dev")
 
     def get_labels(self):
-        return [True, False]
+        return ['True', 'False']
 
     def _create_examples(self, lines, set_type):
         """Creates examples for the training and dev sets."""
@@ -547,7 +547,7 @@ class BoolqProcessor(DataProcessor):
         for (i, line) in enumerate(lines):
             if i == 0:
                 continue
-            guid = "%s-%s" % (set_type, line[0])
+            guid = "%s-%s" % (set_type, line['idx'])
             line = json.loads(line)
             text_a = line['question']
             text_b = line['passage']
