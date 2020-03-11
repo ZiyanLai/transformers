@@ -91,7 +91,7 @@ def glue_convert_examples_to_features(
         if ex_index % 10000 == 0:
             logger.info("Writing example %d/%d" % (ex_index, len_examples))
 
-        inputs = tokenizer.encode_plus(example.text_a, example.text_b, add_special_tokens=True, max_length=max_length, return_token_type_ids=None)
+        inputs = tokenizer.encode_plus(example.text_a, example.text_b, add_special_tokens=True, max_length=max_length, return_token_type_ids=True)
         input_ids, token_type_ids = inputs["input_ids"], inputs["token_type_ids"]
         # input_ids = inputs['input_ids']
         # token_type_ids = [0] * len(input_ids)
@@ -523,8 +523,8 @@ class BoolqProcessor(DataProcessor):
     def get_example_from_tensor_dict(self, tensor_dict):
         return InputExample(
             tensor_dict['idx'].numpy(),
-            tensor_dict['sentence1'].numpy().decode('utf-8'),
-            tensor_dict['sentence2'].numpy().decode('utf-8'),
+            tensor_dict['question'].numpy().decode('utf-8'),
+            tensor_dict['passage'].numpy().decode('utf-8'),
             str(tensor_dict["label"].numpy()),
         )
 
