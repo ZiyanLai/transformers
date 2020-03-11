@@ -16,7 +16,7 @@ source activate /scratch/${NETID}/nlu/env
 
 cd /scratch/${NETID}/nlu/code/transformers
 export PYTHONPATH=/scratch/${NETID}/nlu/code/transformers/src:$PYTHONPATH
-TASK_NAME=ROBERTA
+TASK_NAME=BoolQ
 python ./examples/run_glue.py \
     --model_type roberta\
     --model_name_or_path roberta-base\
@@ -26,6 +26,7 @@ python ./examples/run_glue.py \
     --max_seq_length 128\
     --per_gpu_train_batch_size=8\
     --per_gpu_eval_batch_size=8\
+    --data_dir /scratch/${NETID}/nlu/data/${TASK_NAME} \
     --learning_rate 2e-5 \
     --num_train_epochs 3.0 \
     --output_dir /scratch/${NETID}/nlu/${TASK_NAME}_run/
