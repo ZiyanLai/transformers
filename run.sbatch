@@ -20,12 +20,13 @@ TASK_NAME = ROBERTA
 python ./examples/run_glue.py \
     --model_type roberta\
     --model_name_or_path roberta-base\
-    --max_seq_length 128 \
-    --per_gpu_train_batch_size = 8 \
-    --per_gpu_eval_batch_size = 8 \
-    --learning_rate 2e-5 \
-    --num_train_epochs 3.0 \
     --task_name ${TASK_NAME}\
-    --output_dir /scratch/${NETID}/nlu/${TASK_NAME}_run\
     --do_train\
     --do_eval\
+    --max_seq_length 128\
+    --per_gpu_train_batch_size=8\
+    --per_gpu_eval_batch_size=8\
+    --learning_rate 2e-5 \
+    --num_train_epochs 3.0 \
+    --output_dir /scratch/${NETID}/nlu/${TASK_NAME}_run\
+    
