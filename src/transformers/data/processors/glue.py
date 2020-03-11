@@ -542,7 +542,7 @@ class BoolqProcessor(DataProcessor):
             return self._create_examples(lines, "dev")
 
     def get_labels(self):
-        return ['False', 'True']
+        return [False, True]
 
     def _create_examples(self, lines, set_type):
         """Creates examples for the training and dev sets."""
