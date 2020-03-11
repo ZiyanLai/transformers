@@ -3,7 +3,7 @@
 #SBATCH --mem=16000
 #SBATCH --time=0:30:00
 #SBATCH --job-name="nlu_hw4"
-#SBATCH --output=/Users/ZiyanLai/Desktop/Files/CS/Machine\ Learning/Homeworks/HW4/Submission/log.txt
+#SBATCH --output=log.txt
 module purge
 module load anaconda3/5.3.1
 module load cuda/10.0.130
