@@ -28,5 +28,5 @@ python ./examples/run_glue.py \
     --per_gpu_eval_batch_size=8\
     --learning_rate 2e-5 \
     --num_train_epochs 3.0 \
-    --output_dir /scratch/${NETID}/nlu/${TASK_NAME}_run\
+    --output_dir /scratch/${NETID}/nlu/${TASK_NAME}_run/
     
