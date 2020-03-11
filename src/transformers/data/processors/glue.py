@@ -530,6 +530,7 @@ class BoolqProcessor(DataProcessor):
 
     def get_train_examples(self, data_dir):
         # return self._create_examples(self._read_tsv(os.path.join(data_dir, "train.jsonl")), "train")
+        logger.info("LOOKING AT {}".format(os.path.join(data_dir, "train.jsonl")))
         with open(os.path.join(data_dir, "train.jsonl"), 'r') as file:
             lines = file.readlines()
             return self._create_examples(lines, "train")
@@ -541,7 +542,7 @@ class BoolqProcessor(DataProcessor):
             return self._create_examples(lines, "dev")
 
     def get_labels(self):
-        return ['True', 'False']
+        return ['False', 'True']
 
     def _create_examples(self, lines, set_type):
         """Creates examples for the training and dev sets."""
