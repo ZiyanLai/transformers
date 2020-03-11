@@ -19,6 +19,7 @@ export PYTHONPATH=/scratch/${NETID}/nlu/code/transformers/src:$PYTHONPATH
 TASK_NAME = ROBERTA
 python ./examples/run_glue.py \
     --model_type roberta\
+    --model_name_or_path roberta-base\
     --max_seq_length 128 \
     --per_gpu_train_batch_size = 8 \
     --per_gpu_eval_batch_size = 8 \
