@@ -17,6 +17,7 @@
 
 import logging
 import os
+import json
 
 from ...file_utils import is_tf_available
 from .utils import DataProcessor, InputExample, InputFeatures
@@ -526,13 +527,19 @@ class BoolqProcessor(DataProcessor):
         )
 
     def get_train_examples(self, data_dir):
-        return self._create_examples(self._read_tsv(os.path.join(data_dir, "train.jsonl")), "train")
+        # return self._create_examples(self._read_tsv(os.path.join(data_dir, "train.jsonl")), "train")
+        with open(os.path.join(data_dir, "train.jsonl")) as file:
+            lines = file.read().splitlines
+            return(lines, "train")
 
     def get_dev_examples(self, data_dir):
-        return self._create_examples(self._read_tsv(os.path.join(data_dir, "dev.jsonl")), "dev")
+        # return self._create_examples(self._read_tsv(os.path.join(data_dir, "dev.jsonl")), "dev")
+        with open(os.path.join(data_dir, "val.jsonl")) as file:
+            lines = file.read().splitlines
+            return(lines, "dev")
 
     def get_labels(self):
-        return ["TRUE", "FALSE"]
+        return ["true", "false"]
 
     def _create_examples(self, lines, set_type):
         """Creates examples for the training and dev sets."""
@@ -541,9 +548,10 @@ class BoolqProcessor(DataProcessor):
             if i == 0:
                 continue
             guid = "%s-%s" % (set_type, line[0])
-            text_a = line[1]
-            text_b = line[2]
-            label = line[-1]
+            line = json.loads(line)
+            text_a = line['question']
+            text_b = line['passage']
+            label = line['label']
             examples.append(InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))
         return examples
 
