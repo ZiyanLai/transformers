@@ -550,6 +550,7 @@ class BoolqProcessor(DataProcessor):
             guid = "%s-%s" % (set_type, line[0])
             line = json.loads(line)
             text_a = line['question']
+            print(text_a)
             text_b = line['passage']
             label = line['label']
             examples.append(InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))
