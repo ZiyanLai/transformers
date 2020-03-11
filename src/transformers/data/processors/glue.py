@@ -517,7 +517,7 @@ class WnliProcessor(DataProcessor):
         return examples
 
 class BoolqProcessor(DataProcessor):
-
+    """Processor for the BoolQ data set (SUPERGLUE version)."""
     def get_example_from_tensor_dict(self, tensor_dict):
         return InputExample(
             tensor_dict['idx'].numpy(),
@@ -528,13 +528,13 @@ class BoolqProcessor(DataProcessor):
 
     def get_train_examples(self, data_dir):
         # return self._create_examples(self._read_tsv(os.path.join(data_dir, "train.jsonl")), "train")
-        with open(os.path.abspath.join(data_dir, "train.jsonl")) as file:
+        with open(os.path.join(data_dir, "train.jsonl")) as file:
             lines = file.read().splitlines()
             return self._create_examples(lines, "train")
 
     def get_dev_examples(self, data_dir):
         # return self._create_examples(self._read_tsv(os.path.join(data_dir, "dev.jsonl")), "dev")
-        with open(os.path.abspath.join(data_dir, "val.jsonl")) as file:
+        with open(os.path.join(data_dir, "val.jsonl")) as file:
             lines = file.read().splitlines()
             return self._create_examples(lines, "dev")
 
