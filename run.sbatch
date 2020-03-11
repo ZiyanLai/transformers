@@ -16,7 +16,7 @@ source activate /scratch/${NETID}/nlu/env
 
 cd /scratch/${NETID}/nlu/code/transformers
 export PYTHONPATH=/scratch/${NETID}/nlu/code/transformers/src:$PYTHONPATH
-TASK_NAME = ROBERTA
+TASK_NAME=ROBERTA
 python ./examples/run_glue.py \
     --model_type roberta\
     --model_name_or_path roberta-base\
