@@ -18,7 +18,7 @@
 import logging
 import os
 import json
-# import pandas as pd
+import pandas as pd
 
 from ...file_utils import is_tf_available
 from .utils import DataProcessor, InputExample, InputFeatures
@@ -572,26 +572,26 @@ class AbuseProcessor(DataProcessor):
 
     def get_train_examples(self, data_dir):
         """See base class."""
-        return self._create_examples(self._read_csv(os.path.join(data_dir, "clean_train.csv")), "train")
+        return self._create_examples(pd.read_csv(os.path.join(data_dir, "clean_train.csv")), "train")
 
     def get_dev_examples(self, data_dir):
         """See base class."""
-        return self._create_examples(self._read_csv(os.path.join(data_dir, "clean_val.csv")), "dev")
+        return self._create_examples(pd.read_csv(os.path.join(data_dir, "clean_val.csv")), "dev")
 
     def get_labels(self):
         """See base class."""
         return ["harmless", "toxic", "insult", "threat"]
 
-    def _create_examples(self, lines, set_type):
+    def _create_examples(self, dataframe, set_type):
         """Creates examples for the training and dev sets."""
         examples = []
-        for (i, line) in enumerate(lines):
-            print(line[0])
-            if i == 0:
+        for (ind, line) in enumerate(dataframe.iterrows()):
+            print(line['id'])
+            if ind == 0:
                 continue
-            guid = "%s-%s" % (set_type, line[0])
-            text_a = line[1]
-            label = line[-1]
+            guid = "%s-%s" % (set_type, line['id'])
+            text_a = line['comment_text']
+            label = line['label']
             examples.append(InputExample(guid=guid, text_a=text_a, label=label))
         return examples
 
