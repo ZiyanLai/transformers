@@ -18,6 +18,7 @@
 import logging
 import os
 import json
+import pandas as pd
 
 from ...file_utils import is_tf_available
 from .utils import DataProcessor, InputExample, InputFeatures
@@ -571,11 +572,11 @@ class AbuseProcessor(DataProcessor):
 
     def get_train_examples(self, data_dir):
         """See base class."""
-        return self._create_examples(self._read_tsv(os.path.join(data_dir, "clean_train.tsv")), "train")
+        return self._create_examples(pd.read_csv(os.path.join(data_dir, "clean_train.csv")), "train")
 
     def get_dev_examples(self, data_dir):
         """See base class."""
-        return self._create_examples(self._read_tsv(os.path.join(data_dir, "clean_val.tsv")), "dev")
+        return self._create_examples(pd.read_csv(os.path.join(data_dir, "clean_val.csv")), "dev")
 
     def get_labels(self):
         """See base class."""
@@ -585,6 +586,7 @@ class AbuseProcessor(DataProcessor):
         """Creates examples for the training and dev sets."""
         examples = []
         for (i, line) in enumerate(lines):
+            print(line[0])
             if i == 0:
                 continue
             guid = "%s-%s" % (set_type, line[0])
