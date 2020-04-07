@@ -585,13 +585,13 @@ class AbuseProcessor(DataProcessor):
     def _create_examples(self, dataframe, set_type):
         """Creates examples for the training and dev sets."""
         examples = []
-        for (ind, line) in dataframe.iterrows():
-            print(line['id'])
+        for ind in range(dataframe.shape[0]):
+            print(dataframe.iloc[ind]['id'])
             if ind == 0:
                 continue
-            guid = "%s-%s" % (set_type, line['id'])
-            text_a = line['comment_text']
-            label = line['label']
+            guid = "%s-%s" % (set_type, dataframe.iloc[ind]['id'])
+            text_a = dataframe.iloc[ind]['comment_text']
+            label = dataframe.iloc[ind]['label']
             examples.append(InputExample(guid=guid, text_a=text_a, label=label))
         return examples
 
