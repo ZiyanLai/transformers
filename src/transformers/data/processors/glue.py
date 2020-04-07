@@ -572,11 +572,13 @@ class AbuseProcessor(DataProcessor):
 
     def get_train_examples(self, data_dir):
         """See base class."""
-        return self._create_examples(pd.read_csv(os.path.join(data_dir, "clean_train.csv")), "train")
+        # return self._create_examples(pd.read_csv(os.path.join(data_dir, "clean_train.csv")), "train")
+        return self._create_examples(self._read_tsv(os.path.join(data_dir, "clean_train.csv")), "train")
 
     def get_dev_examples(self, data_dir):
         """See base class."""
-        return self._create_examples(pd.read_csv(os.path.join(data_dir, "clean_val.csv")), "dev")
+        # return self._create_examples(pd.read_csv(os.path.join(data_dir, "clean_val.csv")), "dev")
+        return self._create_examples(self._read_tsv(os.path.join(data_dir, "clean_val.csv")), "dev")
 
     def get_labels(self):
         """See base class."""
@@ -585,14 +587,23 @@ class AbuseProcessor(DataProcessor):
     def _create_examples(self, dataframe, set_type):
         """Creates examples for the training and dev sets."""
         examples = []
-        for ind in range(dataframe.shape[0]):
-            print(dataframe.iloc[ind]['comment_text'])
-            if ind == 0:
+        # for ind in range(dataframe.shape[0]):
+        #     print(dataframe.iloc[ind]['comment_text'])
+        #     if ind == 0:
+        #         continue
+        #     guid = "%s-%s" % (set_type, dataframe.iloc[ind]['id'])
+        #     text_a = dataframe.iloc[ind]['comment_text']
+        #     label = dataframe.iloc[ind]['label']
+        #     examples.append(InputExample(guid=guid, text_a=text_a, label=label))
+        # return examples
+        for (i, line) in enumerate(lines):
+            if i == 0:
                 continue
-            guid = "%s-%s" % (set_type, dataframe.iloc[ind]['id'])
-            text_a = dataframe.iloc[ind]['comment_text']
-            label = dataframe.iloc[ind]['label']
-            examples.append(InputExample(guid=guid, text_a=text_a, label=label))
+            guid = "%s-%s" % (set_type, line[0])
+            text_a = line[1]
+            text_b = line[2]
+            label = line[-1]
+            examples.append(InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))
         return examples
 
 glue_tasks_num_labels = {
@@ -606,7 +617,7 @@ glue_tasks_num_labels = {
     "rte": 2,
     "wnli": 2,
     "boolq": 2,
-    'abuse': 3,
+    'abuse': 4,
 }
 
 glue_processors = {
