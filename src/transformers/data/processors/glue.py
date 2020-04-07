@@ -586,7 +586,7 @@ class AbuseProcessor(DataProcessor):
         """Creates examples for the training and dev sets."""
         examples = []
         for ind in range(dataframe.shape[0]):
-            print(dataframe.iloc[ind]['id'])
+            print(dataframe.iloc[ind]['comment_text'])
             if ind == 0:
                 continue
             guid = "%s-%s" % (set_type, dataframe.iloc[ind]['id'])
@@ -606,7 +606,7 @@ glue_tasks_num_labels = {
     "rte": 2,
     "wnli": 2,
     "boolq": 2,
-    'abuse': 4,
+    'abuse': 3,
 }
 
 glue_processors = {
