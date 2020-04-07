@@ -597,10 +597,11 @@ class AbuseProcessor(DataProcessor):
         #     examples.append(InputExample(guid=guid, text_a=text_a, label=label))
         # return examples
         for (i, line) in enumerate(lines):
+            print(line)
             if i == 0:
                 continue
             guid = "%s-%s" % (set_type, line[0])
-            print(guid)
+            # print(guid)
             text_a = line[2]
             label = line[-1]
             examples.append(InputExample(guid=guid, text_a=text_a, label=label))
@@ -617,7 +618,7 @@ glue_tasks_num_labels = {
     "rte": 2,
     "wnli": 2,
     "boolq": 2,
-    'abuse': 4,
+    "abuse": 4,
 }
 
 glue_processors = {
