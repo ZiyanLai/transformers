@@ -572,11 +572,11 @@ class AbuseProcessor(DataProcessor):
 
     def get_train_examples(self, data_dir):
         """See base class."""
-        return self._create_examples(pd.read_csv(os.path.join(data_dir, "clean_train.csv")), "train")
+        return self._create_examples(self._read_csv(os.path.join(data_dir, "clean_train.csv")), "train")
 
     def get_dev_examples(self, data_dir):
         """See base class."""
-        return self._create_examples(pd.read_csv(os.path.join(data_dir, "clean_val.csv")), "dev")
+        return self._create_examples(self._read_csv(os.path.join(data_dir, "clean_val.csv")), "dev")
 
     def get_labels(self):
         """See base class."""
