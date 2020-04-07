@@ -597,6 +597,7 @@ class AbuseProcessor(DataProcessor):
         #     examples.append(InputExample(guid=guid, text_a=text_a, label=label))
         # return examples
         for (i, line) in enumerate(lines):
+            print("printing lines!!!!!!!!:")
             print(line)
             if i == 0:
                 continue
