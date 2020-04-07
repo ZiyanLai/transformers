@@ -2,7 +2,7 @@
 #SBATCH --gres=gpu:1
 #SBATCH --mem=16000
 #SBATCH --time=0:30:00
-#SBATCH --job-name="nlu_hw4"
+#SBATCH --job-name="nlp project"
 #SBATCH --output=log.txt
 module purge
 module load anaconda3/5.3.1
