@@ -15,10 +15,10 @@ source activate /scratch/${NETID}/nlu/env
 
 cd /scratch/${NETID}/nlu/code/transformers
 export PYTHONPATH=/scratch/${NETID}/nlu/code/transformers/src:$PYTHONPATH
-TASK_NAME=BoolQ
-python ./examples/run_glue.py \
-    --model_type roberta\
-    --model_name_or_path roberta-base\
+TASK_NAME=Abuse
+python ./examples/run_glue.py\
+    --model_type bert\
+    --model_name_or_path bert-base-uncased\
     --task_name ${TASK_NAME}\
     --do_train\
     --do_eval\
