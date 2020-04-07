@@ -581,7 +581,8 @@ class AbuseProcessor(DataProcessor):
 
     def get_dev_examples(self, data_dir):
         """See base class."""
-        return self._create_examples(pd.read_csv(os.path.join(data_dir, "clean_val.csv")), "dev")
+        df = pd.read_csv(os.path.join(data_dir, "clean_val.csv"), sep=',' ,encoding='utf8', engine='python' )
+        return self._create_examples(df, "dev")
         # tsv = self._read_tsv(os.path.join(data_dir, "dev.tsv"))
         # print(tsv)
         # return self._create_examples(tsv, "dev")
