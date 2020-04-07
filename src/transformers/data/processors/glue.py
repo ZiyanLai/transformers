@@ -572,17 +572,19 @@ class AbuseProcessor(DataProcessor):
 
     def get_train_examples(self, data_dir):
         """See base class."""
-        # return self._create_examples(pd.read_csv(os.path.join(data_dir, "clean_train.csv")), "train")
-        tsv = self._read_tsv(os.path.join(data_dir, "train.tsv"))
-        print(tsv)
-        return self._create_examples(self._read_tsv(os.path.join(data_dir, "train.tsv")), "train")
+        df = pd.read_csv(os.path.join(data_dir, "clean_train.csv"))
+        print(df.iloc[1]['comment_text'])
+        return self._create_examples(df, "train")
+        # tsv = self._read_tsv(os.path.join(data_dir, "train.tsv"))
+        # print(tsv)
+        # return self._create_examples(self._read_tsv(os.path.join(data_dir, "train.tsv")), "train")
 
     def get_dev_examples(self, data_dir):
         """See base class."""
-        # return self._create_examples(pd.read_csv(os.path.join(data_dir, "clean_val.csv")), "dev")
-        tsv = self._read_tsv(os.path.join(data_dir, "dev.tsv"))
-        print(tsv)
-        return self._create_examples(tsv, "dev")
+        return self._create_examples(pd.read_csv(os.path.join(data_dir, "clean_val.csv")), "dev")
+        # tsv = self._read_tsv(os.path.join(data_dir, "dev.tsv"))
+        # print(tsv)
+        # return self._create_examples(tsv, "dev")
 
     def get_labels(self):
         """See base class."""
@@ -591,26 +593,27 @@ class AbuseProcessor(DataProcessor):
     def _create_examples(self, lines, set_type):
         """Creates examples for the training and dev sets."""
         examples = []
-        # for ind in range(dataframe.shape[0]):
-        #     print(dataframe.iloc[ind]['comment_text'])
-        #     if ind == 0:
+        for ind in range(lines.shape[0]):
+            print(lines.iloc[ind]['comment_text'])
+            if ind == 0:
+                continue
+            guid = "%s-%s" % (set_type, lines.iloc[ind]['id'])
+            text_a = lines.iloc[ind]['comment_text']
+            label = lines.iloc[ind]['label']
+            examples.append(InputExample(guid=guid, text_a=text_a, label=label))
+
+        # return examples
+        # for (i, line) in enumerate(lines):
+        #     # print("printing lines!!!!!!!!:")
+        #     # print(line)
+        #     if i == 0:
         #         continue
-        #     guid = "%s-%s" % (set_type, dataframe.iloc[ind]['id'])
-        #     text_a = dataframe.iloc[ind]['comment_text']
-        #     label = dataframe.iloc[ind]['label']
+        #     guid = "%s-%s" % (set_type, line[0])
+        #     # print(guid)
+        #     text_a = line[2]
+        #     label = line[-1]
         #     examples.append(InputExample(guid=guid, text_a=text_a, label=label))
         # return examples
-        for (i, line) in enumerate(lines):
-            # print("printing lines!!!!!!!!:")
-            # print(line)
-            if i == 0:
-                continue
-            guid = "%s-%s" % (set_type, line[0])
-            # print(guid)
-            text_a = line[2]
-            label = line[-1]
-            examples.append(InputExample(guid=guid, text_a=text_a, label=label))
-        return examples
 
 glue_tasks_num_labels = {
     "cola": 2,
