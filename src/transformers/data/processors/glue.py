@@ -599,8 +599,9 @@ class AbuseProcessor(DataProcessor):
         for (i, line) in enumerate(lines):
             if i == 0:
                 continue
-            guid = "%s-%s" % (set_type, line[0])
-            text_a = line[1]
+            guid = "%s-%s" % (set_type, line[1])
+            print(guid)
+            text_a = line[2]
             label = line[-1]
             examples.append(InputExample(guid=guid, text_a=text_a, label=label))
         return examples
