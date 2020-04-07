@@ -572,7 +572,7 @@ class AbuseProcessor(DataProcessor):
 
     def get_train_examples(self, data_dir):
         """See base class."""
-        df = pd.read_csv(os.path.join(data_dir, "clean_train.csv"))
+        df = pd.read_csv(os.path.join(data_dir, "clean_train.csv"), sep=',')
         print(df.iloc[1]['comment_text'])
         return self._create_examples(df, "train")
         # tsv = self._read_tsv(os.path.join(data_dir, "train.tsv"))
