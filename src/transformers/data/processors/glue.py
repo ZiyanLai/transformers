@@ -585,7 +585,7 @@ class AbuseProcessor(DataProcessor):
     def _create_examples(self, dataframe, set_type):
         """Creates examples for the training and dev sets."""
         examples = []
-        for (ind, line) in enumerate(dataframe.iterrows()):
+        for (ind, line) in dataframe.iterrows():
             print(line['id'])
             if ind == 0:
                 continue
