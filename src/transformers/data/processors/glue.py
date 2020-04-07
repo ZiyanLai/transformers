@@ -573,18 +573,18 @@ class AbuseProcessor(DataProcessor):
     def get_train_examples(self, data_dir):
         """See base class."""
         # return self._create_examples(pd.read_csv(os.path.join(data_dir, "clean_train.csv")), "train")
-        return self._create_examples(self._read_tsv(os.path.join(data_dir, "clean_train.csv")), "train")
+        return self._create_examples(self._read_tsv(os.path.join(data_dir, "clean_train.tsv")), "train")
 
     def get_dev_examples(self, data_dir):
         """See base class."""
         # return self._create_examples(pd.read_csv(os.path.join(data_dir, "clean_val.csv")), "dev")
-        return self._create_examples(self._read_tsv(os.path.join(data_dir, "clean_val.csv")), "dev")
+        return self._create_examples(self._read_tsv(os.path.join(data_dir, "clean_val.tsv")), "dev")
 
     def get_labels(self):
         """See base class."""
         return ["harmless", "toxic", "insult", "threat"]
 
-    def _create_examples(self, dataframe, set_type):
+    def _create_examples(self, lines, set_type):
         """Creates examples for the training and dev sets."""
         examples = []
         # for ind in range(dataframe.shape[0]):
@@ -601,9 +601,8 @@ class AbuseProcessor(DataProcessor):
                 continue
             guid = "%s-%s" % (set_type, line[0])
             text_a = line[1]
-            text_b = line[2]
             label = line[-1]
-            examples.append(InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))
+            examples.append(InputExample(guid=guid, text_a=text_a, label=label))
         return examples
 
 glue_tasks_num_labels = {
