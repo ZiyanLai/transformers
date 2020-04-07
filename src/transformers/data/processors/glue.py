@@ -573,12 +573,16 @@ class AbuseProcessor(DataProcessor):
     def get_train_examples(self, data_dir):
         """See base class."""
         # return self._create_examples(pd.read_csv(os.path.join(data_dir, "clean_train.csv")), "train")
+        tsv = self._read_tsv(os.path.join(data_dir, "train.tsv"))
+        print(tsv)
         return self._create_examples(self._read_tsv(os.path.join(data_dir, "train.tsv")), "train")
 
     def get_dev_examples(self, data_dir):
         """See base class."""
         # return self._create_examples(pd.read_csv(os.path.join(data_dir, "clean_val.csv")), "dev")
-        return self._create_examples(self._read_tsv(os.path.join(data_dir, "dev.tsv")), "dev")
+        tsv = self._read_tsv(os.path.join(data_dir, "dev.tsv"))
+        print(tsv)
+        return self._create_examples(tsv, "dev")
 
     def get_labels(self):
         """See base class."""
@@ -597,8 +601,8 @@ class AbuseProcessor(DataProcessor):
         #     examples.append(InputExample(guid=guid, text_a=text_a, label=label))
         # return examples
         for (i, line) in enumerate(lines):
-            print("printing lines!!!!!!!!:")
-            print(line)
+            # print("printing lines!!!!!!!!:")
+            # print(line)
             if i == 0:
                 continue
             guid = "%s-%s" % (set_type, line[0])
