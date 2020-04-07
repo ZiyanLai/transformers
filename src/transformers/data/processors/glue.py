@@ -18,7 +18,7 @@
 import logging
 import os
 import json
-import pandas as pd
+# import pandas as pd
 
 from ...file_utils import is_tf_available
 from .utils import DataProcessor, InputExample, InputFeatures
