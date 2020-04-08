@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --gres=gpu:1
 #SBATCH --mem=16000
-#SBATCH --time=2:30:00
+#SBATCH --time=3:30:00
 #SBATCH --job-name="nlp project"
 #SBATCH --output=log.txt
 module purge
@@ -27,7 +27,7 @@ python ./examples/run_glue.py\
     --per_gpu_eval_batch_size=8\
     --data_dir /scratch/${NETID}/nlu/data/${TASK_NAME}\
     --do_lower_case\
-    --learning_rate 2e-1\
-    --num_train_epochs 1.0\
+    --learning_rate 2e-3\
+    --num_train_epochs 2.0\
     --output_dir /scratch/${NETID}/nlu/${TASK_NAME}_run/
     
