@@ -566,7 +566,7 @@ class AbuseProcessor(DataProcessor):
     def get_example_from_tensor_dict(self, tensor_dict):
         """See base class."""
         return InputExample(
-            tensor_dict["id"].numpy(),
+            # tensor_dict["id"].numpy(),
             tensor_dict["comment_text"].numpy().decode("utf-8"),
             str(tensor_dict["label"].numpy()),
         )
@@ -576,7 +576,7 @@ class AbuseProcessor(DataProcessor):
         # df = pd.read_csv(os.path.join(data_dir, "clean_train.csv"), sep=',' ,encoding='utf8', engine='c' )
         # print(df.iloc[1]['comment_text'])
         # return self._create_examples(df, "train")
-        path = os.path.join(data_dir, "train.tsv")
+        path = os.path.join(data_dir, "new_train.tsv")
         with open(path, 'r') as file:
             lines = csv.reader(file, delimiter = '\t')
             return (self._create_examples(lines, "train"))
@@ -586,7 +586,7 @@ class AbuseProcessor(DataProcessor):
         """See base class."""
         # df = pd.read_csv(os.path.join(data_dir, "clean_val.csv"), sep=',' ,encoding='utf8', engine='c' )
         # return self._create_examples(df, "dev")
-        path = os.path.join(data_dir, "dev.tsv")
+        path = os.path.join(data_dir, "new_dev.tsv")
         with open(path, 'r') as file:
             lines = csv.reader(file, delimiter = '\t')
             # print(lines)
