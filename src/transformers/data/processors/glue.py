@@ -595,7 +595,7 @@ class AbuseProcessor(DataProcessor):
 
     def get_labels(self):
         """See base class."""
-        return ["harmless", "toxic", "insult", "threat"]
+        return ["threat","insult","toxic","IsAbuse"]
 
     def _create_examples(self, lines, set_type):
         """Creates examples for the training and dev sets."""
@@ -604,10 +604,10 @@ class AbuseProcessor(DataProcessor):
             # print(line)
             if i == 0:
                 continue
-            guid = "%s-%s" % (set_type, line[0])
+            # guid = "%s-%s" % (set_type, line[0])
             text_a = line[1]
-            label = line[-1]
-            examples.append(InputExample(guid=guid, text_a=text_a, label=label))
+            label = [line[-4],line[-3],line[-2],line[-1]]
+            examples.append(InputExample(text_a=text_a, label=label))
         return examples
         # return examples
         # for (i, line) in enumerate(lines):
