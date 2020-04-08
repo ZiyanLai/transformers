@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --gres=gpu:1
 #SBATCH --mem=16000
-#SBATCH --time=0:30:00
+#SBATCH --time=2:30:00
 #SBATCH --job-name="nlp project"
 #SBATCH --output=log.txt
 module purge
