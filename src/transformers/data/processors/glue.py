@@ -577,7 +577,7 @@ class AbuseProcessor(DataProcessor):
         # print(df.iloc[1]['comment_text'])
         # return self._create_examples(df, "train")
         path = os.path.join(data_dir, "train.tsv")
-        with open(path) as file:
+        with open(path, 'r') as file:
             lines = csv.reader(file, delimiter = '\t')
             return (self._create_examples(lines, "train"))
 
@@ -587,7 +587,7 @@ class AbuseProcessor(DataProcessor):
         # df = pd.read_csv(os.path.join(data_dir, "clean_val.csv"), sep=',' ,encoding='utf8', engine='c' )
         # return self._create_examples(df, "dev")
         path = os.path.join(data_dir, "dev.tsv")
-        with open(path) as file:
+        with open(path, 'r') as file:
             lines = csv.reader(file, delimiter = '\t')
             return (self._create_examples(lines, "dev"))
 
@@ -600,12 +600,14 @@ class AbuseProcessor(DataProcessor):
         """Creates examples for the training and dev sets."""
         examples = []
         for (i,line) in enumerate(lines):
-                if i == 0:
-                    continue
-                guid = "%s-%s" % (set_type, line[0])
-                text_a = line[1]
-                label = line[-1]
-                examples.append(InputExample(guid=guid, text_a=text_a, label=label))
+            print(line[0])
+            if i == 0:
+                continue
+            guid = "%s-%s" % (set_type, line[0])
+            text_a = line[1]
+            label = line[-1]
+            examples.append(InputExample(guid=guid, text_a=text_a, label=label))
+        return examples
         # return examples
         # for (i, line) in enumerate(lines):
         #     # print("printing lines!!!!!!!!:")
