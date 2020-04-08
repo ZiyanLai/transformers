@@ -27,7 +27,7 @@ python ./examples/run_glue.py\
     --per_gpu_eval_batch_size=8\
     --data_dir /scratch/${NETID}/nlu/data/${TASK_NAME}\
     --do_lower_case\
-    --learning_rate 2e-5\
+    --learning_rate 2e-3\
     --num_train_epochs 3.0\
     --output_dir /scratch/${NETID}/nlu/${TASK_NAME}_run/
     
