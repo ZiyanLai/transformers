@@ -18,7 +18,8 @@
 import logging
 import os
 import json
-import pandas as pd
+# import pandas as pd
+import csv
 
 from ...file_utils import is_tf_available
 from .utils import DataProcessor, InputExample, InputFeatures
@@ -572,20 +573,24 @@ class AbuseProcessor(DataProcessor):
 
     def get_train_examples(self, data_dir):
         """See base class."""
-        df = pd.read_csv(os.path.join(data_dir, "clean_train.csv"), sep=',' ,encoding='utf8', engine='python' )
-        print(df.iloc[1]['comment_text'])
-        return self._create_examples(df, "train")
-        # tsv = self._read_tsv(os.path.join(data_dir, "train.tsv"))
-        # print(tsv)
-        # return self._create_examples(self._read_tsv(os.path.join(data_dir, "train.tsv")), "train")
+        # df = pd.read_csv(os.path.join(data_dir, "clean_train.csv"), sep=',' ,encoding='utf8', engine='c' )
+        # print(df.iloc[1]['comment_text'])
+        # return self._create_examples(df, "train")
+        path = os.path.join(data_dir, "train.tsv")
+        with open(path) as file:
+            lines = csv.reader(file, delimiter = '\t')
+            return (self._create_examples(lines, "train"))
+
 
     def get_dev_examples(self, data_dir):
         """See base class."""
-        df = pd.read_csv(os.path.join(data_dir, "clean_val.csv"), sep=',' ,encoding='utf8', engine='python' )
-        return self._create_examples(df, "dev")
-        # tsv = self._read_tsv(os.path.join(data_dir, "dev.tsv"))
-        # print(tsv)
-        # return self._create_examples(tsv, "dev")
+        # df = pd.read_csv(os.path.join(data_dir, "clean_val.csv"), sep=',' ,encoding='utf8', engine='c' )
+        # return self._create_examples(df, "dev")
+        path = os.path.join(data_dir, "dev.tsv")
+        with open(path) as file:
+            lines = csv.reader(file, delimiter = '\t')
+            return (self._create_examples(lines, "dev"))
+
 
     def get_labels(self):
         """See base class."""
@@ -594,15 +599,13 @@ class AbuseProcessor(DataProcessor):
     def _create_examples(self, lines, set_type):
         """Creates examples for the training and dev sets."""
         examples = []
-        for ind in range(lines.shape[0]):
-            print(lines.iloc[ind]['comment_text'])
-            if ind == 0:
-                continue
-            guid = "%s-%s" % (set_type, lines.iloc[ind]['id'])
-            text_a = lines.iloc[ind]['comment_text']
-            label = lines.iloc[ind]['label']
-            examples.append(InputExample(guid=guid, text_a=text_a, label=label))
-
+        for (i,line) in enumerate(lines):
+                if i == 0:
+                    continue
+                guid = "%s-%s" % (set_type, line[0])
+                text_a = line[1]
+                label = line[-1]
+                examples.append(InputExample(guid=guid, text_a=text_a, label=label))
         # return examples
         # for (i, line) in enumerate(lines):
         #     # print("printing lines!!!!!!!!:")
