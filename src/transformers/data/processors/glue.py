@@ -589,6 +589,7 @@ class AbuseProcessor(DataProcessor):
         path = os.path.join(data_dir, "dev.tsv")
         with open(path, 'r') as file:
             lines = csv.reader(file, delimiter = '\t')
+            print(lines)
             return (self._create_examples(lines, "dev"))
 
 
