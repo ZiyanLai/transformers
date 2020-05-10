@@ -621,8 +621,10 @@ class AbuseProcessor(DataProcessor):
 
         examples = []
         for i in range(len(lines)):
+            if type(lines.iloc[i]['comment_text']) != str:
+                continue
             guid = "%s-%s" % (set_type, i)
-            text_a = str(lines.iloc[i]['comment_text'])
+            text_a = lines.iloc[i]['comment_text']
             label = lines.iloc[i]['IsAbuse']
             examples.append(InputExample(guid = guid, text_a = text_a, text_b = None, label = label))
         return examples
