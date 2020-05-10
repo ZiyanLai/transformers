@@ -598,7 +598,7 @@ class AbuseProcessor(DataProcessor):
 
     def get_labels(self):
         """See base class."""
-        return ["0", "1"]
+        return [0, 1]
         # return [[0,1],[0,1],[0,1],[0,1]]
 
     def _create_examples(self, lines, set_type):
@@ -618,6 +618,8 @@ class AbuseProcessor(DataProcessor):
 
         examples = []
         for i in range(len(lines)):
+            if i == 0:
+                continue
             guid = "%s-%s" % (set_type, i)
             text_a = lines.iloc[i]['comment_text']
             label = lines.iloc[i]['IsAbuse']
