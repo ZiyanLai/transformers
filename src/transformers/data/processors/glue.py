@@ -93,7 +93,7 @@ def glue_convert_examples_to_features(
         if ex_index % 10000 == 0:
             logger.info("Writing example %d/%d" % (ex_index, len_examples))
 
-        inputs = tokenizer.encode_plus(example.text_a, example.text_b, add_special_tokens=True, max_length=max_length)
+        inputs = tokenizer.encode_plus(example.text_a, example.text_b, add_special_tokens=True, max_length=max_length, return_token_type_ids=True)
         input_ids, token_type_ids = inputs["input_ids"], inputs["token_type_ids"]
        
 
@@ -618,13 +618,10 @@ class AbuseProcessor(DataProcessor):
 
         examples = []
         for i in range(len(lines)):
-            if i == 0:
-                continue
             guid = "%s-%s" % (set_type, i)
             text_a = lines.iloc[i]['comment_text']
             label = lines.iloc[i]['IsAbuse']
-            examples.append(InputExample(guid = guid, text_a = text_a, text_b = None, label = label))
-
+            examples.append(InputExample(guid = guid, text_a = text_a,  label = label))
         return examples
         
 
