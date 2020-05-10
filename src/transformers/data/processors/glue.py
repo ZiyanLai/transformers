@@ -95,7 +95,9 @@ def glue_convert_examples_to_features(
 
         inputs = tokenizer.encode_plus(example.text_a, example.text_b, add_special_tokens=True, max_length=max_length, return_token_type_ids=True)
         input_ids, token_type_ids = inputs["input_ids"], inputs["token_type_ids"]
-       
+        print("this is input ids: ")
+        print(inputs['input_ids'],'\n')
+        print(type(inputs['input_ids']))
 
         # The mask has 1 for real tokens and 0 for padding tokens. Only real
         # tokens are attended to.
@@ -621,7 +623,7 @@ class AbuseProcessor(DataProcessor):
             guid = "%s-%s" % (set_type, i)
             text_a = lines.iloc[i]['comment_text']
             label = lines.iloc[i]['IsAbuse']
-            examples.append(InputExample(guid = guid, text_a = text_a,  label = label))
+            examples.append(InputExample(guid = guid, text_a = text_a, text_b = None, label = label))
         return examples
         
 
