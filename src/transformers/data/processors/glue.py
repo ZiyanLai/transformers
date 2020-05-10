@@ -635,7 +635,7 @@ glue_tasks_num_labels = {
     "rte": 2,
     "wnli": 2,
     "boolq": 2,
-    "abuse": 4,
+    "abuse": 2,
 }
 
 glue_processors = {
