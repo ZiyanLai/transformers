@@ -577,7 +577,7 @@ class AbuseProcessor(DataProcessor):
         # with open(path, 'r') as file:
         #     lines = csv.reader(file, delimiter = '\t')
         #     return (self._create_examples(lines, "train"))
-        df = pd.read_csv(os.path.join(data_dir, "clean_train.csv"), sep=',' ,encoding='utf8')
+        df = pd.read_csv(os.path.join(data_dir, "cleaned_train.csv"))
         df = df.drop(['threat','insult','toxic','id'], axis=1)
         return (self._create_examples(df, 'train'))
 
@@ -591,7 +591,7 @@ class AbuseProcessor(DataProcessor):
         #     lines = csv.reader(file, delimiter = '\t')
         #     # print(lines)
         #     return (self._create_examples(lines, "dev"))
-        df = pd.read_csv(os.path.join(data_dir, "clean_val.csv"), sep=',' ,encoding='utf8')
+        df = pd.read_csv(os.path.join(data_dir, "cleaned_val.csv"))
         df = df.drop(['threat','insult','toxic','id'], axis=1)
         return (self._create_examples(df, 'dev'))
 
