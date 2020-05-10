@@ -566,7 +566,7 @@ class AbuseProcessor(DataProcessor):
     def get_example_from_tensor_dict(self, tensor_dict):
         """See base class."""
         return InputExample(
-            # tensor_dict["id"].numpy(),
+            tensor_dict["idx"].numpy(),
             tensor_dict["comment_text"].numpy().decode("utf-8"),
             str(tensor_dict["label"].numpy()),
         )
@@ -620,10 +620,10 @@ class AbuseProcessor(DataProcessor):
         for i in range(len(lines)):
             if i == 0:
                 continue
-            # guid = "%s-%s" % (set_type, i)
+            guid = "%s-%s" % (set_type, i)
             text_a = lines.iloc[i]['comment_text']
             label = lines.iloc[i]['IsAbuse']
-            examples.append(InputExample(text_a = text_a, label = label))
+            examples.append(InputExample(guid = guid, text_a = text_a, text_b = None, label = label))
 
         return examples
         
