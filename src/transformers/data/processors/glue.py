@@ -18,7 +18,7 @@
 import logging
 import os
 import json
-# import pandas as pd
+import pandas as pd
 import csv
 
 from ...file_utils import is_tf_available
@@ -576,21 +576,27 @@ class AbuseProcessor(DataProcessor):
         # df = pd.read_csv(os.path.join(data_dir, "clean_train.csv"), sep=',' ,encoding='utf8', engine='c' )
         # print(df.iloc[1]['comment_text'])
         # return self._create_examples(df, "train")
-        path = os.path.join(data_dir, "new_train.tsv")
-        with open(path, 'r') as file:
-            lines = csv.reader(file, delimiter = '\t')
-            return (self._create_examples(lines, "train"))
+        # path = os.path.join(data_dir, "new_train.tsv")
+        # with open(path, 'r') as file:
+        #     lines = csv.reader(file, delimiter = '\t')
+        #     return (self._create_examples(lines, "train"))
+        df = pd.read_csv(os.path.join(data_dir, "clean_train.csv"), sep=',' ,encoding='utf8')
+        df = df.drop(['threat','insult','toxic','id'], axis=1)
+        return (self._create_examples(df, 'train'))
 
 
     def get_dev_examples(self, data_dir):
         """See base class."""
-        # df = pd.read_csv(os.path.join(data_dir, "clean_val.csv"), sep=',' ,encoding='utf8', engine='c' )
-        # return self._create_examples(df, "dev")
-        path = os.path.join(data_dir, "new_dev.tsv")
-        with open(path, 'r') as file:
-            lines = csv.reader(file, delimiter = '\t')
-            # print(lines)
-            return (self._create_examples(lines, "dev"))
+        # # df = pd.read_csv(os.path.join(data_dir, "clean_val.csv"), sep=',' ,encoding='utf8', engine='c' )
+        # # return self._create_examples(df, "dev")
+        # path = os.path.join(data_dir, "new_dev.tsv")
+        # with open(path, 'r') as file:
+        #     lines = csv.reader(file, delimiter = '\t')
+        #     # print(lines)
+        #     return (self._create_examples(lines, "dev"))
+        df = pd.read_csv(os.path.join(data_dir, "clean_val.csv"), sep=',' ,encoding='utf8')
+        df = df.drop(['threat','insult','toxic','id'], axis=1)
+        return (self._create_examples(df, 'dev'))
 
 
     def get_labels(self):
@@ -601,30 +607,27 @@ class AbuseProcessor(DataProcessor):
 
     def _create_examples(self, lines, set_type):
         """Creates examples for the training and dev sets."""
-        examples = []
-        for (i,line) in enumerate(lines):
-            # print(line)
-            if i == 0:
-                continue
-            guid = "%s-%s" % (set_type, line[0])
-            text_a = line[1]
-            print(type(line[-1]))
-            label = line[-1]
-            # label = [line[-4],line[-3],line[-2],line[-1]]
-            examples.append(InputExample(guid = guid, text_a=text_a, text_b = None, label=label))
-        return examples
-        # return examples
-        # for (i, line) in enumerate(lines):
-        #     # print("printing lines!!!!!!!!:")
+        # examples = []
+        # for (i,line) in enumerate(lines):
         #     # print(line)
         #     if i == 0:
         #         continue
         #     guid = "%s-%s" % (set_type, line[0])
-        #     # print(guid)
-        #     text_a = line[2]
+        #     text_a = line[1]
+        #     print(type(line[-1]))
         #     label = line[-1]
-        #     examples.append(InputExample(guid=guid, text_a=text_a, label=label))
+        #     # label = [line[-4],line[-3],line[-2],line[-1]]
+        #     examples.append(InputExample(guid = guid, text_a=text_a, text_b = None, label=label))
         # return examples
+
+        examples = []
+        for i in range(len(lines)):
+            text_a = lines.iloc[i]['comment_text']
+            label = lines.iloc[i]['IsAbuse']
+            examples.append(text_a = text_a, label = label)
+
+        return examples
+        
 
 glue_tasks_num_labels = {
     "cola": 2,
