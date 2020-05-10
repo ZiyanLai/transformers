@@ -231,7 +231,7 @@ def train(args, train_dataset, model, tokenizer):
                     scaled_loss.backward()
             else:
                 loss.backward()
-
+                print(loss)
             tr_loss += loss.item()
             if (step + 1) % args.gradient_accumulation_steps == 0:
                 if args.fp16:
