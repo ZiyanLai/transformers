@@ -570,6 +570,7 @@ class AbuseProcessor(DataProcessor):
         return InputExample(
             tensor_dict["idx"].numpy(),
             tensor_dict["comment_text"].numpy().decode("utf-8"),
+            None,
             str(tensor_dict["label"].numpy()),
         )
 
@@ -622,6 +623,7 @@ class AbuseProcessor(DataProcessor):
         for i in range(len(lines)):
             guid = "%s-%s" % (set_type, i)
             text_a = lines.iloc[i]['comment_text']
+            print(text_a)
             label = lines.iloc[i]['IsAbuse']
             examples.append(InputExample(guid = guid, text_a = text_a, text_b = None, label = label))
         return examples
