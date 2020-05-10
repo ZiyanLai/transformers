@@ -607,6 +607,7 @@ class AbuseProcessor(DataProcessor):
             if i == 0:
                 continue
             # guid = "%s-%s" % (set_type, line[0])
+            print(line)
             text_a = line[1]
             print(type(line[-1]))
             label = line[-1]
