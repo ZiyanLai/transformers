@@ -598,7 +598,6 @@ class AbuseProcessor(DataProcessor):
 
     def get_labels(self):
         """See base class."""
-        # return ["threat","insult","toxic","IsAbuse"]
         return [0, 1]
         # return [[0,1],[0,1],[0,1],[0,1]]
 
@@ -619,9 +618,10 @@ class AbuseProcessor(DataProcessor):
 
         examples = []
         for i in range(len(lines)):
+            guid = "%s-%s" % (set_type, i)
             text_a = lines.iloc[i]['comment_text']
             label = lines.iloc[i]['IsAbuse']
-            examples.append(text_a = text_a, label = label)
+            examples.append(guid = guid, text_a = text_a, label = label)
 
         return examples
         
