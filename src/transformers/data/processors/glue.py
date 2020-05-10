@@ -566,7 +566,7 @@ class AbuseProcessor(DataProcessor):
     def get_example_from_tensor_dict(self, tensor_dict):
         """See base class."""
         return InputExample(
-            # tensor_dict["id"].numpy(),
+            tensor_dict["id"].numpy(),
             tensor_dict["comment_text"].numpy().decode("utf-8"),
             str(tensor_dict["label"].numpy()),
         )
