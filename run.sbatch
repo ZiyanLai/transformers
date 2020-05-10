@@ -15,7 +15,7 @@ source activate /scratch/${NETID}/nlu/env
 
 cd /scratch/${NETID}/nlu/code/transformers
 export PYTHONPATH=/scratch/${NETID}/nlu/code/transformers/src:$PYTHONPATH
-TASK_NAME=SST-2
+TASK_NAME=Abuse
 python ./examples/run_glue.py\
     --model_type bert\
     --model_name_or_path bert-base-uncased\
