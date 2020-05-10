@@ -1024,8 +1024,6 @@ class PreTrainedTokenizer(object):
         """
 
         def get_input_ids(text):
-            print("This is text!!!!!!!!!")
-            print(type(text))
             if isinstance(text, str):
                 tokens = self.tokenize(text, add_special_tokens=add_special_tokens, **kwargs)
                 return self.convert_tokens_to_ids(tokens)
