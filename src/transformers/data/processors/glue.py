@@ -576,10 +576,6 @@ class AbuseProcessor(DataProcessor):
 
     def get_train_examples(self, data_dir):
         """See base class."""
-        # path = os.path.join(data_dir, "new_train.tsv")
-        # with open(path, 'r') as file:
-        #     lines = csv.reader(file, delimiter = '\t')
-        #     return (self._create_examples(lines, "train"))
         df = pd.read_csv(os.path.join(data_dir, "cleaned_train.csv"))
         df = df.drop(['threat','insult','toxic','id'], axis=1)
         return (self._create_examples(df, 'train'))
@@ -587,13 +583,6 @@ class AbuseProcessor(DataProcessor):
 
     def get_dev_examples(self, data_dir):
         """See base class."""
-        # # df = pd.read_csv(os.path.join(data_dir, "clean_val.csv"), sep=',' ,encoding='utf8', engine='c' )
-        # # return self._create_examples(df, "dev")
-        # path = os.path.join(data_dir, "new_dev.tsv")
-        # with open(path, 'r') as file:
-        #     lines = csv.reader(file, delimiter = '\t')
-        #     # print(lines)
-        #     return (self._create_examples(lines, "dev"))
         df = pd.read_csv(os.path.join(data_dir, "cleaned_val.csv"))
         df = df.drop(['threat','insult','toxic','id'], axis=1)
         return (self._create_examples(df, 'dev'))
@@ -606,18 +595,6 @@ class AbuseProcessor(DataProcessor):
 
     def _create_examples(self, lines, set_type):
         """Creates examples for the training and dev sets."""
-        # examples = []
-        # for (i,line) in enumerate(lines):
-        #     # print(line)
-        #     if i == 0:
-        #         continue
-        #     guid = "%s-%s" % (set_type, line[0])
-        #     text_a = line[1]
-        #     print(type(line[-1]))
-        #     label = line[-1]
-        #     # label = [line[-4],line[-3],line[-2],line[-1]]
-        #     examples.append(InputExample(guid = guid, text_a=text_a, text_b = None, label=label))
-        # return examples
 
         examples = []
         for i in range(len(lines)):
